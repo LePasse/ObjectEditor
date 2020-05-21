@@ -1,0 +1,9 @@
+C:\Users\LePasse\source\repos\OOP2\OOP2\bin\Debug\OOP2.exe.config
+C:\Users\LePasse\source\repos\OOP2\OOP2\bin\Debug\OOP2.exe
+C:\Users\LePasse\source\repos\OOP2\OOP2\bin\Debug\OOP2.pdb
+C:\Users\LePasse\source\repos\OOP2\OOP2\obj\Debug\OOP2.csprojAssemblyReference.cache
+C:\Users\LePasse\source\repos\OOP2\OOP2\obj\Debug\OOP2.Form1.resources
+C:\Users\LePasse\source\repos\OOP2\OOP2\obj\Debug\OOP2.Properties.Resources.resources
+C:\Users\LePasse\source\repos\OOP2\OOP2\obj\Debug\OOP2.csproj.GenerateResource.cache
+C:\Users\LePasse\source\repos\OOP2\OOP2\obj\Debug\OOP2.exe
+C:\Users\LePasse\source\repos\OOP2\OOP2\obj\Debug\OOP2.pdb

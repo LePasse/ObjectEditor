@@ -59,12 +59,7 @@ namespace OOP2
         {
             if (obj != null)
             {
-                foreach (Control control in controls)
-                {
-                    Controls.Remove(control);
-                }
-                controls.Clear();
-                
+                            
                 Type type = obj.GetType();
                 var fields = type.GetFields();
                 foreach (FieldInfo fieldInfo in fields)
@@ -100,8 +95,40 @@ namespace OOP2
                     }
                     else if ((type2.IsClass) && (type2.Name != "String"))
                     {
+
                         object temp = create_obj(type2);
-                        y = printF( temp, controls, x, y);
+
+                        controls.Add(new Label()
+                        {
+                            Font = new Font("Microsoft Sans Serif", 12),
+                            Size = new Size(300, 20),
+                            Location = new Point(0 + x, 10 + y * 30),
+                            Text = "Existing" + type2.ToString()
+                        });
+                        y++;
+
+                        ComboBox agr = new ComboBox()
+                        {
+                            Font = new Font("Microsoft Sans Serif", 12),
+                            Size = new Size(300, 20),
+                            DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList,
+                            Location = new Point(0 + x, 10 + y * 30),
+                            Name = "Existing" + type2.ToString()
+                        };
+                        
+                        int i = 0;
+                        foreach (Object obj1 in allObj)
+                        {
+                            if (obj1.GetType() == type2)
+                            {
+                                agr.Items.Add(obj1.ToString() + (++i).ToString());
+                            }
+                        }
+
+                        controls.Add(agr);
+                        y++;
+
+                        y = printF(temp, controls, x, y);
                     }
                     else
                     {
@@ -139,9 +166,32 @@ namespace OOP2
                 //Type t = Type.GetType(fieldInfo.FieldType.ToString());
                 if ((t.IsClass) && (t.Name != "String"))
                 {
-                    object buff = create_obj(t);
-                    buff = setV(buff);
-                    fieldInfo.SetValue(obj,buff);
+                    Boolean flag = true;
+                    foreach (Control ctrl in controls)
+                    {
+                        if (ctrl.Name == "Existing" + t.ToString())
+                        {
+                            if (ctrl.Text != "")
+                            {
+                                int i = 0; flag = false;
+                                foreach (Object obj1 in allObj)
+                                {
+                                    if ((obj1.GetType() == t) && (obj1.ToString() + (++i).ToString() == ctrl.Text))
+                                    {
+                                        fieldInfo.SetValue(obj, obj1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (flag)
+                    {
+                        object buff = create_obj(t);
+                        buff = setV(buff);
+                        fieldInfo.SetValue(obj, buff);
+                        allObj.Add(buff);
+                        comboBox2.Items.Add(buff.ToString() + allObj.Count());
+                    }
                 }
                 else if (t.IsEnum)
                 {
@@ -274,6 +324,11 @@ namespace OOP2
                 Controls.Remove(control);
             }
             object buff = allObj[comboBox2.SelectedIndex];
+            foreach (Control control in controls)
+            {
+                Controls.Remove(control);
+            }
+            controls.Clear();
             printF(buff, controls, 200, 1);
             foreach (Control control in controls)
             {
@@ -312,6 +367,11 @@ namespace OOP2
             if (comboBox1.Text != "")
             {
                 Object obj = create_obj(Type.GetType("Classes." + comboBox1.Text));
+                foreach (Control control in controls)
+                {
+                    Controls.Remove(control);
+                }
+                controls.Clear();
                 printF(obj, this.controls, 200, 1);
             }
             foreach (Control control in controls)
